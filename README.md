@@ -6,17 +6,41 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser. The home page is at `src/app/(marketing)/page.tsx`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploying on a VPS
+
+If you see the default Next.js welcome page (“To get started, edit the page.tsx file”, Deploy Now, Documentation) after deploying to a VPS, **the server is running old or different code**—not this repo.
+
+Do this on the VPS:
+
+1. **Use the same codebase**  
+   Deploy from this repo (e.g. `git clone` / `git pull`), or upload the full project including:
+   - `src/app/(marketing)/` (home page)
+   - `src/app/(app)/`
+   - `src/components/`
+   - `src/features/`
+   - `src/lib/`, `src/hooks/`, `src/types/`
+
+2. **Install, build, and run**
+   ```bash
+   npm ci
+   npm run build
+   npm run start
+   ```
+
+3. **Avoid old build/cache**  
+   Remove the previous build before building again:
+   ```bash
+   rm -rf .next
+   npm run build
+   npm run start
+   ```
+
+4. **Confirm**  
+   The site root `/` should show the Sajilo Sim landing (hero, destinations, offers, footer). If it still shows the default Next.js page, the process (e.g. PM2, Docker, or your deploy script) is likely running from a different directory or an old copy of the app.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
